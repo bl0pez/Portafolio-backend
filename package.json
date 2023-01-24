@@ -1,0 +1,24 @@
+{
+  "name": "portafolio-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/index.js",
+  "scripts": {
+    "dev": "nodemon ./src/index.js",
+    "start": "node ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bl0pez/Portafolio-backend.git"
+  },
+  "author": "bl0pez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bl0pez/Portafolio-backend/issues"
+  },
+  "homepage": "https://github.com/bl0pez/Portafolio-backend#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^6.8.4"
+  }
+}
