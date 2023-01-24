@@ -1,8 +1,9 @@
 const { Router } = require('express');
-const { seed } = require('../controllers/seed');
+const { getGithub } = require('../controllers/github');
 
 const router = Router();
 
-router.post('/seed', seed);
+router.get('/github', getGithub);
+
 
 module.exports = router;

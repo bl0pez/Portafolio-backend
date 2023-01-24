@@ -9,6 +9,9 @@ const app = exprees();
 //Middlewares
 app.use(cors());
 
+// Parse JSON
+app.use(exprees.json());
+
 //Conect to DB
 connectDB();
 
@@ -17,6 +20,7 @@ app.set('port', process.env.PORT || 3000);
 
 // Routes
 app.use('/api', require('./routes/seed'));
+app.use('/api', require('./routes/github'));
 
 
 app.listen(app.get('port'), () => {

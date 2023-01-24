@@ -1,4 +1,4 @@
-const Github = require("../src/models/Github");
+const Github = require("../models/Github");
 
 const seed = async(req, res) => {
 
@@ -6,6 +6,9 @@ const seed = async(req, res) => {
         //Solicitud a la api de github
         const response = await fetch('https://api.github.com/users/bl0pez/repos');
         const githubData = await response.json();
+
+        //Limpiamos la base de datos
+        await Github.deleteMany();
 
         //Array de promesas
         const repos = [];
