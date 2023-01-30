@@ -1,4 +1,4 @@
-const Github = require("../models/Github");
+const Github = require('../models/Github');
 
 const seed = async(req, res) => {
 
@@ -10,24 +10,30 @@ const seed = async(req, res) => {
         //Limpiamos la base de datos
         await Github.deleteMany();
 
-        //Array de promesas
+        //Array
         const repos = [];
 
         githubData.forEach(({ 
             name,
             description,
             html_url,
-            topics
+            topics,
+            homepage,
         }) => {
                 
                 const imageURL = `https://raw.githubusercontent.com/bl0pez/${name}/master/preview.png`;
+
+                //Agregamos solo los que tengan la etiqueta frontend y backend
+                if(!topics.includes('frontend') && !topics.includes('backend')) return;
+
 
                 repos.push({
                     name,
                     description,
                     html_url,
                     image: imageURL,
-                    topics
+                    topics,
+                    homepage,
                 });
         });
 

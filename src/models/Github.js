@@ -5,6 +5,7 @@ const GithubSchema = new Schema({
     description: String,
     html_url: String,
     image: String,
+    homepage: String,
     topics: [String],
 }, {
     versionKey: false
