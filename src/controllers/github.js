@@ -4,14 +4,13 @@ const getGithub = async(req, res) => {
     try {
         const data = await Github.find();
 
-            const frontend = data.filter( item => item.topics.includes('frontend'));
-            const backend = data.filter( item => item.topics.includes('backend'));
+            // const frontend = data.filter( item => item.topics.includes('frontend'));
+            // const backend = data.filter( item => item.topics.includes('backend'));
 
 
         res.status(200).json({
             ok: true,
-            frontend,
-            backend,
+            data,
         });
 
         
