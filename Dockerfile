@@ -10,7 +10,7 @@ COPY package*.json ./
 # Copiamos el resto de archivos
 COPY src ./src
 
-# Instalamos las dependencias
-RUN npm install
+# Instalamos las dependencias de producción
+RUN npm install --only=production
 
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "start"]
