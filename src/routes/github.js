@@ -1,9 +1,13 @@
 const { Router } = require('express');
-const { getGithub } = require('../controllers/github');
+const { getGithub, sendEmail } = require('../controllers/github');
 
 const router = Router();
 
-router.get('/github', getGithub);
+router.get('/portafolio', getGithub);
+
+//Ruta enviar correo
+router.post('/send-email', sendEmail);
+
 
 
 module.exports = router;
