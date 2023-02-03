@@ -1,7 +1,7 @@
 const nodeMailer = require('nodemailer');
 const Github = require('../models/Github');
 
-const getGithub = async(req, res) => {
+const getGithub = async (req, res) => {
     try {
         const data = await Github.find();
 
@@ -10,26 +10,36 @@ const getGithub = async(req, res) => {
             data,
         });
 
-        
+
     } catch (error) {
         console.log(error);
         res.status(500).json({
-            ok:false,
+            ok: false,
             error: error.message
         });
     }
 }
 
 
-const sendEmail = async(req, res) => {
+const sendEmail = async (req, res) => {
     try {
-        
+
         const { name, email, message } = req.body;
 
-        if(!name || !email || !message) {
+        // Validar que todos los campos estén llenos
+        if (!name || !email || !message) {
             return res.status(400).json({
                 ok: false,
                 msg: 'Todos los campos son obligatorios'
+            });
+        }
+
+        // Validar que el email sea válido
+        const regex = /\S+@\S+\.\S+/;
+        if (!regex.test(email)) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'El email no es válido'
             });
         }
 
@@ -67,7 +77,7 @@ const sendEmail = async(req, res) => {
     } catch (error) {
         console.log(error);
         res.status(500).json({
-            ok:false,
+            ok: false,
             error: error.message
         });
     }
