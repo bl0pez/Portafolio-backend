@@ -4,7 +4,7 @@ const seed = async(req, res) => {
 
         try {
         //Solicitud a la api de github
-        const response = await fetch('https://api.github.com/users/bl0pez/repos');
+        const response = await fetch('https://api.github.com/users/bl0pez/subscriptions');
         const githubData = await response.json();
 
         //Limpiamos la base de datos
