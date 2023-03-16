@@ -13,5 +13,10 @@
         docker compose up
         ```
 
+## ENDPOINTS
+- [GET] /api/portafolio - Obtener todos los proyectos
+- [POST] /api/send-email - Enviar un correo electrónico
+- [POST] /api/seed - Carga los proyectos en la base de datos
+
 
 

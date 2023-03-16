@@ -1,8 +1,9 @@
 const exprees = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const connectDB = require('./db/config');
 dotenv.config();
+
+const connectDB = require('./db/config');
 
 const app = exprees();
 
@@ -28,7 +29,6 @@ app.use((req, res, next) => {
         ok: false,
         msg: 'Ruta no encontrada'
     });
-
 });
 
 
