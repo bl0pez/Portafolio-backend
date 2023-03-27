@@ -1,17 +1,20 @@
-const exprees = require('express');
+const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const path = require('path');
 dotenv.config();
 
 const connectDB = require('./db/config');
 
-const app = exprees();
+const app = express();
 
 //Middlewares
+app.use(express.static(path.resolve(__dirname, '../', 'public')));
+
 app.use(cors());
 
 // Parse JSON
-app.use(exprees.json());
+app.use(express.json());
 
 //Conect to DB
 connectDB();
