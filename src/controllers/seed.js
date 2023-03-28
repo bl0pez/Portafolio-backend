@@ -4,14 +4,26 @@ const seed = async(req, res) => {
 
         try {
         //Solicitud a la api de github
-        const response = await fetch('https://api.github.com/users/bl0pez/repos', {
-            headers: {
-                'Authorization': `token ${process.env.GITHUB_TOKEN}`
-            }
-        }); //https://api.github.com/users/bl0pez/subscriptions
+        // const response = await fetch('https://api.github.com/users/bl0pez/subscriptions', {
+        //     headers: {
+        //         'Authorization': `token ${process.env.GITHUB_TOKEN}`
+        //     }
+        // }); //https://api.github.com/users/bl0pez/subscriptions
         //https://api.github.com/users/bl0pez/repos
-        const githubData = await response.json();
+        
+        const response1 = await fetch('https://api.github.com/users/bl0pez/repos');
+        const response2 = await fetch('https://api.github.com/users/bl0pez/subscriptions');
 
+        const githubData1 = await response1.json();
+        const githubData2 = await response2.json();
+
+        //devuelva los repositorios una sola ves y no se repitan
+        const githubData = githubData1.concat(githubData2.filter((item) => {
+            return !githubData1.some((item2) => {
+                return item2.id === item.id;
+            });
+        }));
+        
         //Limpiamos la base de datos
         await Github.deleteMany();
 
@@ -25,13 +37,11 @@ const seed = async(req, res) => {
             topics,
             homepage,
         }) => {
-
-                console.log(name);
                 
                 const imageURL = `https://raw.githubusercontent.com/bl0pez/${name}/master/preview.png`;
 
                 //Agregamos solo los que tengan la etiqueta frontend y backend
-                if(topics.includes('frontend') || topics.includes('backend') || !!html_url) {
+                if(topics.includes('frontend') || topics.includes('backend') || homepage !== null) {
                     repos.push({
                         name,
                         description,
