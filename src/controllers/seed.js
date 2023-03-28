@@ -45,7 +45,7 @@ const seed = async(req, res) => {
         });
 
     } catch (error) {
-        console.log(error.message);
+        console.log(error);
         res.status(500).json({
             ok: false,
             msg: "Error"
