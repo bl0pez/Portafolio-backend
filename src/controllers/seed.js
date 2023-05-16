@@ -11,11 +11,21 @@ const seed = async(req, res) => {
         // }); //https://api.github.com/users/bl0pez/subscriptions
         //https://api.github.com/users/bl0pez/repos
         
-        const response1 = await fetch('https://api.github.com/users/bl0pez/repos');
-        const response2 = await fetch('https://api.github.com/users/bl0pez/subscriptions');
+        // const response1 = await fetch('https://api.github.com/users/bl0pez/repos');
+        // const response2 = await fetch('https://api.github.com/users/bl0pez/subscriptions');
 
-        const githubData1 = await response1.json();
-        const githubData2 = await response2.json();
+        const [response1, response2] = await Promise.all([
+            fetch('https://api.github.com/users/bl0pez/repos'),
+            fetch('https://api.github.com/users/bl0pez/subscriptions')
+        ]);
+
+        // const githubData1 = await response1.json();
+        // const githubData2 = await response2.json();
+
+        const [githubData1, githubData2] = await Promise.all([
+            response1.json(),
+            response2.json()
+        ]);
 
         //devuelva los repositorios una sola ves y no se repitan
         const githubData = githubData1.concat(githubData2.filter((item) => {
