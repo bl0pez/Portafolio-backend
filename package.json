@@ -19,11 +19,11 @@
   },
   "homepage": "https://github.com/bl0pez/Portafolio-backend#readme",
   "dependencies": {
+    "axios": "^1.4.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "mongoose": "^6.8.4",
-    "node-fetch": "^3.3.1",
     "nodemailer": "^6.9.1"
   },
   "devDependencies": {

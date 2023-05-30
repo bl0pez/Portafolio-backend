@@ -1,9 +1,9 @@
-const fetch = require('node-fetch');
+const axios = require('axios');
 const Github = require('../models/Github');
 
-const seed = async(req, res) => {
+const seed = async (req, res) => {
 
-        try {
+    try {
         //Solicitud a la api de github
         // const response = await fetch('https://api.github.com/users/bl0pez/subscriptions', {
         //     headers: {
@@ -11,21 +11,23 @@ const seed = async(req, res) => {
         //     }
         // }); //https://api.github.com/users/bl0pez/subscriptions
         //https://api.github.com/users/bl0pez/repos
-        
+
         // const response1 = await fetch('https://api.github.com/users/bl0pez/repos');
         // const response2 = await fetch('https://api.github.com/users/bl0pez/subscriptions');
 
+        //Limpiamos la base de datos
+        await Github.deleteMany();
+
         const [response1, response2] = await Promise.all([
-            fetch('https://api.github.com/users/bl0pez/repos'),
-            fetch('https://api.github.com/users/bl0pez/subscriptions')
+            axios.get('https://api.github.com/users/bl0pez/repos'),
+            axios.get('https://api.github.com/users/bl0pez/subscriptions')
+            // fetch('https://api.github.com/users/bl0pez/repos'),
+            // fetch('https://api.github.com/users/bl0pez/subscriptions')
         ]);
 
-        // const githubData1 = await response1.json();
-        // const githubData2 = await response2.json();
-
         const [githubData1, githubData2] = await Promise.all([
-            response1.json(),
-            response2.json()
+            response1.data,
+            response2.data
         ]);
 
         //devuelva los repositorios una sola ves y no se repitan
@@ -34,35 +36,33 @@ const seed = async(req, res) => {
                 return item2.id === item.id;
             });
         }));
-        
-        //Limpiamos la base de datos
-        await Github.deleteMany();
+
 
         //Array
         const repos = [];
 
-        githubData.forEach(({ 
+        githubData.forEach(({
             name,
             description,
             html_url,
             topics,
             homepage,
         }) => {
-                
-                const imageURL = `https://raw.githubusercontent.com/bl0pez/${name}/master/preview.png`;
-                const imageUrlDefault = "https://raw.githubusercontent.com/bl0pez/Portafolio-backend/master/preview.webp"
 
-                //Agregamos solo los que tengan la etiqueta frontend y backend
-                if(topics.includes('frontend') || topics.includes('backend') || homepage !== null) {
-                    repos.push({
-                        name,
-                        description,
-                        html_url,
-                        image: imageURL ? imageURL : imageUrlDefault,
-                        topics,
-                        homepage,
-                    });
-                }
+            const imageURL = `https://raw.githubusercontent.com/bl0pez/${name}/master/preview.png`;
+            const imageUrlDefault = "https://raw.githubusercontent.com/bl0pez/Portafolio-backend/master/preview.webp"
+
+            //Agregamos solo los que tengan la etiqueta frontend y backend
+            if (topics.includes('frontend') || topics.includes('backend') || homepage !== null) {
+                repos.push({
+                    name,
+                    description,
+                    html_url,
+                    image: imageURL ? imageURL : imageUrlDefault,
+                    topics,
+                    homepage,
+                });
+            }
 
         });
 
