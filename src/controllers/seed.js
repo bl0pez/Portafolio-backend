@@ -1,3 +1,4 @@
+const fetch = require('node-fetch');
 const Github = require('../models/Github');
 
 const seed = async(req, res) => {
