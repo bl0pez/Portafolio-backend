@@ -58,7 +58,7 @@ const seed = async (req, res) => {
                     name,
                     description,
                     html_url,
-                    image: imageURL ? imageURL : imageUrlDefault,
+                    image: image ? imageURL : imageUrlDefault,
                     topics,
                     homepage,
                 });
