@@ -49,6 +49,7 @@ const seed = async(req, res) => {
         }) => {
                 
                 const imageURL = `https://raw.githubusercontent.com/bl0pez/${name}/master/preview.png`;
+                const imageUrlDefault = "https://raw.githubusercontent.com/bl0pez/Portafolio-backend/master/preview.webp"
 
                 //Agregamos solo los que tengan la etiqueta frontend y backend
                 if(topics.includes('frontend') || topics.includes('backend') || homepage !== null) {
@@ -56,7 +57,7 @@ const seed = async(req, res) => {
                         name,
                         description,
                         html_url,
-                        image: imageURL,
+                        image: imageURL ? imageURL : imageUrlDefault,
                         topics,
                         homepage,
                     });
