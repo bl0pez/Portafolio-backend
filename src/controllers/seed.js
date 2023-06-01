@@ -18,21 +18,15 @@ const seed = async (req, res) => {
         //Limpiamos la base de datos
         await Github.deleteMany();
 
-        const [response1, response2] = await Promise.all([
-            axios.get('https://api.github.com/users/bl0pez/repos'),
-            axios.get('https://api.github.com/users/bl0pez/subscriptions')
-            // fetch('https://api.github.com/users/bl0pez/repos'),
-            // fetch('https://api.github.com/users/bl0pez/subscriptions')
-        ]);
-
+        //Traemos los datos de la api de github
         const [githubData1, githubData2] = await Promise.all([
-            response1.data,
-            response2.data
+           axios.get('https://api.github.com/users/bl0pez/repos'),
+           axios.get('https://api.github.com/users/bl0pez/subscriptions')
         ]);
 
         //devuelva los repositorios una sola ves y no se repitan
-        const githubData = githubData1.concat(githubData2.filter((item) => {
-            return !githubData1.some((item2) => {
+        const githubData = githubData1.data.concat(githubData2.data.filter((item) => {
+            return !githubData1.data.some((item2) => {
                 return item2.id === item.id;
             });
         }));
@@ -58,7 +52,7 @@ const seed = async (req, res) => {
                     name,
                     description,
                     html_url,
-                    image: imageURL ? imageURL : imageUrlDefault,
+                    image: imageURL != '' ? imageURL : imageUrlDefault,
                     topics,
                     homepage,
                 });
