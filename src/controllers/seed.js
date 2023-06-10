@@ -43,7 +43,7 @@ const seed = async (req, res) => {
             homepage,
         }) => {
 
-            const imageURL = `https://raw.githubusercontent.com/bl0pez/${name}/master/preview.png`;
+            const imageURL = `https://raw.githubusercontent.com/bl0pez/${name}/master/preview.webp`;
             const imageUrlDefault = "./assets/img/preview.webp";
 
             //Agregamos solo los que tengan la etiqueta frontend y backend
